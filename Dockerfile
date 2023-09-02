@@ -1,5 +1,4 @@
 FROM centos
-RUN yum update -y
 RUN yum install ssh wget -y
 RUN wget http://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-x86_64.rpm -O ./cloudflared.rpm
 RUN yum localinstall -y cloudflared.rpm
