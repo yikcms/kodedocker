@@ -7,6 +7,7 @@ RUN apt update -y \
     && apt install -y openssh-server wget
 
 # 配置 SSH
+RUN mkdir /run/sshd
 # RUN ssh-keygen -A
 RUN echo 'root:password' | chpasswd   # 替换 "password" 为你想要的密码
 
