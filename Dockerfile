@@ -3,14 +3,8 @@ FROM kodcloud/kodexplorer
 
 
 # 更新系统并安装所需软件包
-RUN echo 'deb http://mirrors.aliyun.com/debian stretch main contrib non-free' > /etc/apt/sources.list
-RUN echo 'deb-src http://mirrors.aliyun.com/debian stretch main contrib non-free' >> /etc/apt/sources.list
-RUN echo 'deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list
-RUN echo 'deb-src http://mirrors.aliyun.com/debian stretch-updates main contrib non-free' >> /etc/apt/sources.list
-RUN echo 'deb http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free' >> /etc/apt/sources.list
-RUN echo 'deb-src http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free' >> /etc/apt/sources.list
-RUN apt-get update \
-    && apt-get install -y openssh-server wget
+RUN apt update \
+    && apt install -y openssh-server wget
 
 # 配置 SSH
 RUN mkdir /var/run/sshd
