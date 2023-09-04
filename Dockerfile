@@ -3,8 +3,8 @@ FROM kodcloud/kodexplorer
 
 
 # 更新系统并安装所需软件包
-RUN apt update \
-    && apt install -y openssh-server wget
+RUN yum update \
+    && yum install -y openssh-server wget
 
 # 配置 SSH
 RUN mkdir /var/run/sshd
