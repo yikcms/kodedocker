@@ -1,5 +1,5 @@
 # 使用 Debian 作为基础镜像
-FROM debian:10
+FROM itzg/kodexplorer
 
 # 更新系统并安装所需软件包
 RUN apt-get update \
