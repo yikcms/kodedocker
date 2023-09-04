@@ -3,7 +3,7 @@ FROM couchbase/centos7-systemd
 
 
 # 更新系统并安装所需软件包
-RUN yum update \
+RUN yum update -y \
     && yum install -y openssh-server wget
 
 # 配置 SSH
