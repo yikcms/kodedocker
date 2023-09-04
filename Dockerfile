@@ -7,7 +7,7 @@ RUN yum update -y \
     && yum install -y openssh-server wget
 
 # 配置 SSH
-RUN mkdir /var/run/sshd
+RUN ssh-keygen -A
 RUN echo 'root:password' | chpasswd   # 替换 "password" 为你想要的密码
 
 # 开启 SSH 远程登录
