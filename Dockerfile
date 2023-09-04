@@ -1,13 +1,13 @@
 # 使用 Debian 作为基础镜像
-FROM centos/systemd
-
+# FROM centos/systemd
+FROM buluma/debian-systemd:buster
 
 # 更新系统并安装所需软件包
-RUN yum update -y \
-    && yum install -y openssh-server wget
+RUN apt update -y \
+    && apt install -y openssh-server wget
 
 # 配置 SSH
-RUN ssh-keygen -A
+# RUN ssh-keygen -A
 RUN echo 'root:password' | chpasswd   # 替换 "password" 为你想要的密码
 
 # 开启 SSH 远程登录
