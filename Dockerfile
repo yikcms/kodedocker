@@ -1,5 +1,5 @@
 # 使用 Debian 作为基础镜像
-FROM couchbase/centos7-systemd
+FROM centos/systemd
 
 
 # 更新系统并安装所需软件包
