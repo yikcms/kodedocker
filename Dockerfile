@@ -1,6 +1,6 @@
 # 使用 Debian 作为基础镜像
 # FROM centos/systemd
-FROM drud/nginx-php73
+FROM drud/nginx-php73:v0.29.1
 
 # 更新系统并安装所需软件包
 RUN apt update -y \
