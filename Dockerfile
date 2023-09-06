@@ -1,10 +1,10 @@
 # 使用 Debian 作为基础镜像
 # FROM centos/systemd
-FROM drud/nginx-php71
+FROM skiychan/nginx-php7
 
 # 更新系统并安装所需软件包
-RUN apt update -y \
-    && apt install -y openssh-server wget
+RUN yum update -y \
+    && yum install -y openssh-server wget
 
 # 配置 SSH
 RUN mkdir /run/sshd
