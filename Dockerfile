@@ -1,13 +1,13 @@
 # 使用 Debian 作为基础镜像
 # FROM centos/systemd
-FROM navidonskis/nginx-php7.1
+FROM alexisdarnat/nginx-php7.1-fpm
 
 # 更新系统并安装所需软件包
 RUN apt update -y \
     && apt install -y openssh-server wget
 
 # 配置 SSH
-# RUN mkdir /run/sshd
+RUN mkdir /run/sshd
 # RUN ssh-keygen -A
 RUN echo 'root:password' | chpasswd   # 替换 "password" 为你想要的密码
 
