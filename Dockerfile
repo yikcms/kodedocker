@@ -1,26 +1,17 @@
-# 使用 Debian 作为基础镜像
-# FROM centos/systemd
-FROM alexisdarnat/nginx-php7.1-fpm
-
-# 更新系统并安装所需软件包
-RUN apt update -y \
-    && apt install -y openssh-server wget
-
-# 配置 SSH
-RUN mkdir /run/sshd
-# RUN ssh-keygen -A
-RUN echo 'root:password' | chpasswd   # 替换 "password" 为你想要的密码
-
-# 开启 SSH 远程登录
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config
-
-# 安装 frpc
-RUN wget https://github.com/fatedier/frp/releases/download/v0.37.1/frp_0.37.1_linux_amd64.tar.gz
-RUN tar -xzvf frp_0.37.1_linux_amd64.tar.gz
-RUN unlink frp_0.37.1_linux_amd64.tar.gz
-RUN mv frp_0.37.1_linux_amd64 /frp
-
+FROM baiyuetribe/kodexplorer
+RUN apk update && \
+    apk add --no-cache openssh tzdata && \ 
+    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
+       ssh-keygen -t dsa -P "" -f /etc/ssh/ssh_host_dsa_key && \
+    ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key && \
+    ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key && \
+    ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key && \
+    echo "root:admin" | chpasswd && \
+    wget https://github.com/fatedier/frp/releases/download/v0.37.1/frp_0.37.1_linux_amd64.tar.gz &&\
+    tar -xzvf frp_0.37.1_linux_amd64.tar.gz &&\
+    unlink frp_0.37.1_linux_amd64.tar.gz &&\
+    mv frp_0.37.1_linux_amd64 /frp
 RUN unlink /frp/frpc.ini
 RUN echo '[common]' >> /frp/frpc.ini \
 && echo 'server_addr = 172.245.159.187' >> /frp/frpc.ini \
@@ -31,6 +22,8 @@ RUN echo '[common]' >> /frp/frpc.ini \
 && echo 'local_ip = 127.0.0.1' >> /frp/frpc.ini \
 && echo 'local_port = 22' >> /frp/frpc.ini \
 && echo 'remote_port = 6000' >> /frp/frpc.ini
-
-# 启动 SSH 服务
-CMD sh -c "/usr/sbin/sshd && /frp/frpc -c /frp/frpc.ini"
+RUN apk add openrc && \
+apk add --no-cache curl && \
+curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
+chmod +x /usr/local/bin/cloudflared
+CMD ["/bin/sh", "-c", "/usr/sbin/sshd -D & /frp/frpc -c /frp/frpc.ini & php -S 0.0.0.0:80 -t /var/www/html"]
