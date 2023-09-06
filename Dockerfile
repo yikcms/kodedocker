@@ -1,6 +1,6 @@
 # 使用 Debian 作为基础镜像
 # FROM centos/systemd
-FROM joselfonsecadt/nginx-php7.3
+FROM lukino/nginx-php7.3
 
 # 更新系统并安装所需软件包
 RUN apt update -y \
