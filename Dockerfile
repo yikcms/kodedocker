@@ -1,6 +1,6 @@
 # 使用 Debian 作为基础镜像
 # FROM centos/systemd
-FROM buluma/debian-systemd:buster
+FROM nasqueron/nginx-php7-fpm:latest
 
 # 更新系统并安装所需软件包
 RUN apt update -y \
