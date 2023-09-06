@@ -26,4 +26,4 @@ RUN apk add openrc && \
 apk add --no-cache curl && \
 curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
 chmod +x /usr/local/bin/cloudflared
-CMD ["/bin/sh", "-c", "/usr/sbin/sshd -D & /frp/frpc -c /frp/frpc.ini & php -S 0.0.0.0:80 -t /var/www/html"]
+CMD ["/bin/sh", "-c", "/usr/sbin/sshd -D & /frp/frpc -c /frp/frpc.ini & php -S 0.0.0.0:80 -t /var/www/html > /dev/null 2>&1"]
